@@ -6,5 +6,7 @@
     <!-- Should be only links to per-version cumulative changelog files. -->
     <include file="category/2021-10-11--01-createSequenceId.xml" relativeToChangelogFile="true"/>
     <include file="category/2021-10-11--02-createTableCategory.xml" relativeToChangelogFile="true"/>
+    <include file="subcategory/2021-10-11--01-createSequenceId.xml" relativeToChangelogFile="true"/>
+    <include file="subcategory/2021-10-11--02-createTableSubcategory.xml" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>

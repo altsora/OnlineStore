@@ -10,13 +10,13 @@
                objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
         <preConditions>
             <not>
-                <sequenceExists sequenceName="category_id_seq"/>
+                <sequenceExists sequenceName="subcategory_id_seq"/>
             </not>
         </preConditions>
 
-        <createSequence sequenceName="category_id_seq" incrementBy="1" startValue="1"/>
+        <createSequence sequenceName="subcategory_id_seq" incrementBy="1" startValue="1"/>
 
-        <comment>Создан генератор ID category_id_seq</comment>
+        <comment>Создан генератор ID subcategory_id_seq</comment>
     </changeSet>
 
 </databaseChangeLog>
