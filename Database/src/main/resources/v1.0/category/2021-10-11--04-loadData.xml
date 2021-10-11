@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <property name="autoIncrement" value="false" dbms="postgresql"/>
+    <property name="autoIncrement" value="true" dbms="h2"/>
+
+    <changeSet id="2021-10-11--02-createTableCategory" author="avergun" context="update" runInTransaction="false"
+               objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="category"/>
+            <columnExists tableName="category" columnName="name"/>
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*) FROM category
+            </sqlCheck>
+        </preConditions>
+
+        <loadData tableName="category"
+                  commentLineStartsWith="#"
+                  encoding="UTF-8"
+                  file="v1.0/data/categories.csv"
+                  relativeToChangelogFile="false"
+                  separator=";"
+                  usePreparedStatements="true">
+            <column header="name" name="name" type="varchar"/>
+        </loadData>
+
+        <comment>Заполнение таблицы категорий из CSV-файла</comment>
+    </changeSet>
+
+</databaseChangeLog>

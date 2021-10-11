@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="2021-10-11--03-addIndexName" author="avergun" context="update" runInTransaction="false"
+               objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+        <preConditions onFail="HALT">
+            <columnExists tableName="category" columnName="name"/>
+            <not>
+                <indexExists tableName="category" indexName="k0_category"/>
+            </not>
+        </preConditions>
+        
+        <createIndex tableName="category" indexName="k0_category" unique="true">
+            <column name="name"/>
+        </createIndex>
+
+        <comment>Добавлен уникальный индекс по столбцу "name"</comment>
+    </changeSet>
+
+</databaseChangeLog>
