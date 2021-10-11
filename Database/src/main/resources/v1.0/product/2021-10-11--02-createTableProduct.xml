@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <property name="autoIncrement" value="false" dbms="postgresql"/>
+    <property name="autoIncrement" value="true" dbms="h2"/>
+
+    <changeSet id="2021-10-11--02-createTableProduct" author="avergun" context="update" runInTransaction="false"
+               objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+        <preConditions onFail="HALT">
+            <sequenceExists sequenceName="product_id_seq"/>
+            <not>
+                <tableExists tableName="product"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="product" remarks="Таблица товаров">
+            <column name="id" type="numeric(15,0)" remarks="Суррогатный первичный ключ" autoIncrement="${autoIncrement}"
+                    defaultValueSequenceNext="product_id_seq">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(100)" remarks="Название продукта">
+                <constraints nullable="false"/>
+            </column>
+            <column name="price" type="currency" remarks="Цена одного товара">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_available" type="boolean" remarks="Флаг: товар доступен">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="varchar(255)" remarks="Описание товара">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <comment>Создана таблица товаров "product"</comment>
+    </changeSet>
+
+</databaseChangeLog>

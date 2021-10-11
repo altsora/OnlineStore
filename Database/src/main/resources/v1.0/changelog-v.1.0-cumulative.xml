@@ -8,10 +8,12 @@
     <include file="category/2021-10-11--02-createTableCategory.xml" relativeToChangelogFile="true"/>
     <include file="category/2021-10-11--03-addIndexName.xml" relativeToChangelogFile="true"/>
     <include file="category/2021-10-11--04-loadData.xml" relativeToChangelogFile="true"/>
-
     <include file="subcategory/2021-10-11--01-createSequenceId.xml" relativeToChangelogFile="true"/>
     <include file="subcategory/2021-10-11--02-createTableSubcategory.xml" relativeToChangelogFile="true"/>
     <include file="subcategory/2021-10-11--03-addIndex.xml" relativeToChangelogFile="true"/>
     <include file="subcategory/2021-10-11--04-loadData.xml" relativeToChangelogFile="true"/>
+    <include file="product/2021-10-11--01-createSequenceId.xml" relativeToChangelogFile="true"/>
+    <include file="product/2021-10-11--02-createTableProduct.xml" relativeToChangelogFile="true"/>
+    <include file="product/2021-10-11--03-loadData.xml" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>
