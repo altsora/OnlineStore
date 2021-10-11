@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <property name="autoIncrement" value="false" dbms="postgresql"/>
+    <property name="autoIncrement" value="true" dbms="h2"/>
+
+    <changeSet id="2021-10-11--01-createSequenceId" author="avergun" context="update" runInTransaction="false"
+               objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+        <preConditions>
+            <not>
+                <sequenceExists sequenceName="category_id_seq"/>
+            </not>
+        </preConditions>
+
+        <createSequence sequenceName="category_id_seq" incrementBy="1" startValue="1"/>
+
+        <comment>Создана генератор ID category_id_seq</comment>
+    </changeSet>
+
+</databaseChangeLog>

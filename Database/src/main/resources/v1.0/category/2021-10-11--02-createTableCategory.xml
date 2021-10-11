@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <property name="autoIncrement" value="false" dbms="postgresql"/>
+    <property name="autoIncrement" value="true" dbms="h2"/>
+
+    <changeSet id="2021-10-11--02-createTableCategory" author="avergun" context="update" runInTransaction="false"
+               objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+        <preConditions>
+            <sequenceExists sequenceName="category_id_seq"/>
+            <not>
+                <tableExists tableName="category"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="category">
+            <column name="id" type="numeric(15,0)" remarks="Суррогатный первичный ключ" autoIncrement="${autoIncrement}"
+                    defaultValueSequenceNext="category_id_seq">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="name" type="varchar(100)" remarks="Название категории">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <comment>Создана таблица категорий "category"</comment>
+    </changeSet>
+
+</databaseChangeLog>
