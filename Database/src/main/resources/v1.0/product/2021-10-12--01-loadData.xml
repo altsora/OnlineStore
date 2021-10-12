@@ -24,6 +24,12 @@
                  stripComments="true"/>
 
         <comment>Заполнение таблицы товаров из SQL-файла</comment>
+
+        <rollback>
+            <sql>
+                DELETE FROM product
+            </sql>
+        </rollback>
     </changeSet>
 
 </databaseChangeLog>

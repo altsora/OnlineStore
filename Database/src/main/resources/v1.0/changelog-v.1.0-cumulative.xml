@@ -13,9 +13,8 @@
     <include file="product/2021-10-11--01-createSequenceId.xml" relativeToChangelogFile="true"/>
     <include file="product/2021-10-11--02-createTableProduct.xml" relativeToChangelogFile="true"/>
     <include file="storage/2021-10-12--01-createTableStorage.xml" relativeToChangelogFile="true"/>
-    <include file="storage/2021-10-12--02-createProcedure.xml" relativeToChangelogFile="true"/>
+    <include file="storage/2021-10-12--02-createFunction.xml" relativeToChangelogFile="true"/>
     <include file="storage/2021-10-12--03-addTrigger.xml" relativeToChangelogFile="true"/>
-
     <include file="category/2021-10-12--01-loadData.xml" relativeToChangelogFile="true"/>
     <include file="subcategory/2021-10-12--01-loadData.xml" relativeToChangelogFile="true"/>
     <include file="product/2021-10-12--01-loadData.xml" relativeToChangelogFile="true"/>

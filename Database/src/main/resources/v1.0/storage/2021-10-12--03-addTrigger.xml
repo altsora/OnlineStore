@@ -29,6 +29,12 @@
         </sql>
 
         <comment>Триггер для добавления продукта в хранилище</comment>
+
+        <rollback>
+            <sql>
+                DROP TRIGGER trig_storage ON product
+            </sql>
+        </rollback>
     </changeSet>
 
 </databaseChangeLog>

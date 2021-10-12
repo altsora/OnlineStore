@@ -35,6 +35,10 @@
         </createTable>
 
         <comment>Создана таблица товаров "product"</comment>
+
+        <rollback>
+            <dropTable tableName="product"/>
+        </rollback>
     </changeSet>
 
 </databaseChangeLog>

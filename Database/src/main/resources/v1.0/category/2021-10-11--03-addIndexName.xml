@@ -17,6 +17,10 @@
         </createIndex>
 
         <comment>Добавлен уникальный индекс по столбцу "name"</comment>
+
+        <rollback>
+            <dropIndex tableName="category" indexName="k0_category"/>
+        </rollback>
     </changeSet>
 
 </databaseChangeLog>

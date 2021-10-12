@@ -6,7 +6,7 @@
     <property name="autoIncrement" value="false" dbms="postgresql"/>
     <property name="autoIncrement" value="true" dbms="h2"/>
 
-    <changeSet id="2021-10-12--02-createProcedure" author="avergun" context="update" runInTransaction="false"
+    <changeSet id="2021-10-12--02-createFunction" author="avergun" context="update" runInTransaction="false"
                objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
         <preConditions onFail="HALT">
             <tableExists tableName="product"/>
@@ -25,13 +25,19 @@
 
         <createProcedure dbms="h2, postgresql"
                          encoding="UTF-8"
-                         path="v1.0/procedures/add_product_in_storage.sql"
+                         path="v1.0/functions/add_product_in_storage.sql"
                          procedureName="new_customer"
                          relativeToChangelogFile="false"
                          schemaName="public">
         </createProcedure>
 
         <comment>Создана процедура add_product_in_storage</comment>
+
+        <rollback>
+            <sql>
+                DROP FUNCTION add_product_in_storage
+            </sql>
+        </rollback>
     </changeSet>
 
 </databaseChangeLog>

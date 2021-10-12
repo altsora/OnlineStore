@@ -17,6 +17,10 @@
         <createSequence sequenceName="subcategory_id_seq" incrementBy="1" startValue="1"/>
 
         <comment>Создан генератор ID subcategory_id_seq</comment>
+
+        <rollback>
+            <dropSequence sequenceName="subcategory_id_seq"/>
+        </rollback>
     </changeSet>
 
 </databaseChangeLog>

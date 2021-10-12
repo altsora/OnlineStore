@@ -32,6 +32,10 @@
         </createTable>
 
         <comment>Создана таблица подкатегорий "subcategory"</comment>
+
+        <rollback>
+            <dropTable tableName="subcategory"/>
+        </rollback>
     </changeSet>
 
 </databaseChangeLog>

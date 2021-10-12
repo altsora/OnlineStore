@@ -27,6 +27,10 @@
         </createTable>
 
         <comment>Создана таблица категорий "category"</comment>
+
+        <rollback>
+            <dropTable tableName="category"/>
+        </rollback>
     </changeSet>
 
 </databaseChangeLog>

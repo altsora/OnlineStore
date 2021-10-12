@@ -23,6 +23,12 @@
                  stripComments="true"/>
 
         <comment>Заполнение таблицы подкатегорий из SQL-файла</comment>
+
+        <rollback>
+            <sql>
+                DELETE FROM subcategory
+            </sql>
+        </rollback>
     </changeSet>
 
 </databaseChangeLog>

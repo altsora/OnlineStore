@@ -27,6 +27,12 @@
         </loadData>
 
         <comment>Заполнение таблицы категорий из CSV-файла</comment>
+
+        <rollback>
+            <sql>
+                DELETE FROM category
+            </sql>
+        </rollback>
     </changeSet>
 
 </databaseChangeLog>
