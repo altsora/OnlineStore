@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <property name="autoIncrement" value="false" dbms="postgresql"/>
+    <property name="autoIncrement" value="true" dbms="h2"/>
+
+    <changeSet id="2021-10-12--02-createProcedure" author="avergun" context="update" runInTransaction="false"
+               objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+        <preConditions onFail="HALT">
+            <tableExists tableName="product"/>
+            <columnExists tableName="product" columnName="id"/>
+            <tableExists tableName="storage"/>
+            <columnExists tableName="storage" columnName="product_id"/>
+            <columnExists tableName="storage" columnName="amount"/>
+            <sqlCheck expectedResult="0">
+                SELECT count(*)
+                FROM pg_catalog.pg_proc
+                JOIN pg_namespace ON pg_catalog.pg_proc.pronamespace = pg_namespace.oid
+                WHERE proname = 'add_product_in_storage'
+                AND pg_namespace.nspname = 'public'
+            </sqlCheck>
+        </preConditions>
+
+        <createProcedure dbms="h2, postgresql"
+                         encoding="UTF-8"
+                         path="v1.0/procedures/add_product_in_storage.sql"
+                         procedureName="new_customer"
+                         relativeToChangelogFile="false"
+                         schemaName="public">
+        </createProcedure>
+
+        <comment>Создана процедура add_product_in_storage</comment>
+    </changeSet>
+
+</databaseChangeLog>

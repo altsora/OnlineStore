@@ -3,26 +3,27 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
-    <changeSet id="2021-10-11--04-loadData" author="avergun" context="update" runInTransaction="false"
+    <changeSet id="2021-10-12--01-loadData" author="avergun" context="update" runInTransaction="false"
                objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
         <preConditions onFail="HALT">
-            <tableExists tableName="subcategory"/>
-            <columnExists tableName="subcategory" columnName="category_id"/>
-            <columnExists tableName="subcategory" columnName="name"/>
+            <tableExists tableName="product"/>
+            <columnExists tableName="product" columnName="name"/>
+            <columnExists tableName="product" columnName="price"/>
+            <columnExists tableName="product" columnName="is_available"/>
             <sqlCheck expectedResult="0">
-                SELECT COUNT(*) FROM subcategory
+                SELECT COUNT(*) FROM product
             </sqlCheck>
         </preConditions>
 
         <sqlFile dbms="h2, postgresql"
                  encoding="UTF-8"
                  endDelimiter="\nGO"
-                 path="v1.0/data/subcategories.sql"
+                 path="v1.0/data/products.sql"
                  relativeToChangelogFile="false"
                  splitStatements="true"
                  stripComments="true"/>
 
-        <comment>Заполнение таблицы подкатегорий из SQL-файла</comment>
+        <comment>Заполнение таблицы товаров из SQL-файла</comment>
     </changeSet>
 
 </databaseChangeLog>

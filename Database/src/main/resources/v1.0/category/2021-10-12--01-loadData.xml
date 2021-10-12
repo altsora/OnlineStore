@@ -6,7 +6,7 @@
     <property name="autoIncrement" value="false" dbms="postgresql"/>
     <property name="autoIncrement" value="true" dbms="h2"/>
 
-    <changeSet id="2021-10-11--04-loadData" author="avergun" context="update" runInTransaction="false"
+    <changeSet id="2021-10-12--01-loadData" author="avergun" context="update" runInTransaction="false"
                objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
         <preConditions onFail="HALT">
             <tableExists tableName="category"/>
