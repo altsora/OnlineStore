@@ -13,8 +13,8 @@ import ru.altsora.exception.InvalidDataException;
 
 @ControllerAdvice
 public class AwesomeExceptionHandler extends ResponseEntityExceptionHandler {
-    private static final int NOT_FOUND_CODE = 1;
-    private static final int INVALID_DATA_CODE = 2;
+    public static final int NOT_FOUND_CODE = 1;
+    public static final int INVALID_DATA_CODE = 2;
 
     @ExceptionHandler(DomainNotFoundException.class)
     private ResponseEntity<ResponseException> handleDomainNotFoundException(DomainNotFoundException ex) {
