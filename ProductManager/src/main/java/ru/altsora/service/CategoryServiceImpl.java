@@ -9,6 +9,7 @@ import ru.altsora.dto.CategoryDto;
 import ru.altsora.exception.DomainNotFoundException;
 import ru.altsora.repository.CategoryRepository;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,6 +30,7 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryRepository.findAll()
                 .stream()
                 .map(CATEGORY_DOMAIN_TO_DTO)
+                .sorted(Comparator.comparing(CategoryDto::getName))
                 .collect(Collectors.toList());
     }
 
