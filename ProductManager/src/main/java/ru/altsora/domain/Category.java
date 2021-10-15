@@ -1,9 +1,6 @@
 package ru.altsora.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -24,6 +21,7 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "category_id_seq")
     @SequenceGenerator(name = "category_id_seq", sequenceName = "category_id_seq", allocationSize = 1)
     @Column(name = "id")
+    @EqualsAndHashCode.Exclude
     private long id;
     /**
      * Название категории товара.
