@@ -8,7 +8,8 @@ public final class RetMessage {
         throw new IllegalStateException("Utility class");
     }
 
-    public static final String NOT_FOUND_CATEGORY_ID = "Категория с ID '%s' не найдена";
-    public static final String NOT_FOUND_CATEGORY_NAME = "Категория с именем '%s' не найдена";
-    public static final String EXISTS_CATEGORY_NAME = "Категория с именем '%s' уже существует";
+    public static final String CATEGORY_NOT_FOUND_ID = "Категория с ID '%s' не найдена";
+    public static final String CATEGORY_NOT_FOUND_NAME = "Категория с именем '%s' не найдена";
+    public static final String CATEGORY_EXISTS_NAME = "Категория с именем '%s' уже существует";
+    public static final String CATEGORY_EMPTY_NAME = "Название категории не может быть пустым";
 }

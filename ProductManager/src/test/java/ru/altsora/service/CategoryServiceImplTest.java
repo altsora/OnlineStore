@@ -1,15 +1,18 @@
 package ru.altsora.service;
 
+import org.apache.logging.log4j.util.Strings;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 import ru.altsora.domain.Category;
 import ru.altsora.dto.CategoryDto;
+import ru.altsora.dto.request.CategoryAddIn;
+import ru.altsora.dto.response.CategoryAddOut;
 import ru.altsora.exception.DomainNotFoundException;
+import ru.altsora.exception.InvalidDataException;
 import ru.altsora.repository.CategoryRepository;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -128,5 +131,50 @@ class CategoryServiceImplTest {
         assertTrue(actual.isEmpty());
 
         verify(categoryRepository, times(1)).findAll();
+    }
+
+    @Test
+    @DisplayName("Создание категории: успешно")
+    void addCategory_OK() {
+        final long id = 1;
+        final String name = "categoryName";
+        final CategoryAddIn addIn = new CategoryAddIn(name);
+        final Category beforeSave = Category.builder().name(name).build();
+        final Category afterSave = Category.builder().id(id).name(name).build();
+
+        doReturn(false).when(categoryRepository).existsByName(name);
+        doReturn(afterSave).when(categoryRepository).saveAndFlush(beforeSave);
+
+        final CategoryAddOut actual = categoryService.add(addIn);
+        assertNotNull(actual);
+        assertEquals(id, actual.getId());
+        assertEquals(name, actual.getName());
+
+        verify(categoryRepository, times(1)).existsByName(name);
+        verify(categoryRepository, times(1)).saveAndFlush(beforeSave);
+    }
+
+    @Test
+    @DisplayName("Создание категории: пустое имя")
+    void addCategory_emptyName() {
+        final String name = Strings.EMPTY;
+        final CategoryAddIn addIn = new CategoryAddIn(name);
+
+        final Executable executable = () -> categoryService.add(addIn);
+        assertThrows(InvalidDataException.class, executable);
+    }
+
+    @Test
+    @DisplayName("Создание категории: имя уже существует")
+    void addCategory_nameExists() {
+        final String name = "categoryName";
+        final CategoryAddIn addIn = new CategoryAddIn(name);
+
+        doReturn(true).when(categoryRepository).existsByName(name);
+
+        final Executable executable = () -> categoryService.add(addIn);
+        assertThrows(InvalidDataException.class, executable);
+
+        verify(categoryRepository, times(1)).existsByName(name);
     }
 }
