@@ -4,16 +4,14 @@ import org.apache.logging.log4j.util.Strings;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import ru.altsora.dto.CategoryDto;
-import ru.altsora.dto.request.CategoryAddIn;
-import ru.altsora.dto.response.CategoryAddOut;
 import ru.altsora.exception.DomainNotFoundException;
 import ru.altsora.exception.InvalidDataException;
+import ru.altsora.model.dto.CategoryDto;
+import ru.altsora.model.request.CategoryAddIn;
+import ru.altsora.model.response.CategoryAddOut;
 import ru.altsora.service.CategoryService;
-import ru.altsora.util.Converter;
 
 import java.util.List;
 
@@ -29,14 +27,8 @@ import static ru.altsora.util.RetMessage.*;
 
 @DisplayName("Тестирование контроллера Категорий ")
 class CategoryControllerTest extends AbstractWebController {
-    private static final String RET_CODE = "$.retCode";
-    private static final String RET_MESSAGE = "$.retMessage";
-
     @MockBean
     private CategoryService categoryService;
-
-    @Autowired
-    private Converter converter;
 
     @AfterEach
     void afterEach() {
@@ -81,7 +73,7 @@ class CategoryControllerTest extends AbstractWebController {
 
     @Test
     @DisplayName("Поиск категории по имени: категория найдена")
-    void findByName_found() throws Exception {
+    void findByName_OK() throws Exception {
         final long id = 1L;
         final String name = "categoryName";
         final CategoryDto categoryDto = CategoryDto.builder().id(id).name(name).build();
@@ -117,7 +109,7 @@ class CategoryControllerTest extends AbstractWebController {
 
     @Test
     @DisplayName("Найти все категории: список не пуст")
-    void findAll_notEmpty() throws Exception {
+    void findAll_OK() throws Exception {
         final long id1 = 1;
         final String name1 = "name1";
         final CategoryDto categoryDto1 = CategoryDto.builder().id(id1).name(name1).build();
@@ -131,6 +123,7 @@ class CategoryControllerTest extends AbstractWebController {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.length()", is(2)))
                 .andExpect(jsonPath("$[0].id", notNullValue()))
                 .andExpect(jsonPath("$[0].id", is(id1), Long.class))
                 .andExpect(jsonPath("$[0].name", notNullValue()))

@@ -9,4 +9,8 @@ public class InvalidDataException extends RuntimeException {
     public InvalidDataException(final String message) {
         this.message = message;
     }
+
+    public InvalidDataException(final String format, final Object... params) {
+        this.message = String.format(format, params);
+    }
 }

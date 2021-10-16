@@ -1,7 +1,7 @@
 package ru.altsora.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import ru.altsora.domain.Category;
+import ru.altsora.model.domain.Category;
 
 import java.util.Optional;
 

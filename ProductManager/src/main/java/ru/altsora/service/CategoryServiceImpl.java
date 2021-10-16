@@ -6,10 +6,10 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
-import ru.altsora.domain.Category;
-import ru.altsora.dto.CategoryDto;
-import ru.altsora.dto.request.CategoryAddIn;
-import ru.altsora.dto.response.CategoryAddOut;
+import ru.altsora.model.domain.Category;
+import ru.altsora.model.dto.CategoryDto;
+import ru.altsora.model.request.CategoryAddIn;
+import ru.altsora.model.response.CategoryAddOut;
 import ru.altsora.exception.DomainNotFoundException;
 import ru.altsora.exception.InvalidDataException;
 import ru.altsora.repository.CategoryRepository;
@@ -61,7 +61,7 @@ public class CategoryServiceImpl implements CategoryService {
             throw new InvalidDataException(CATEGORY_EMPTY_NAME);
         }
         if (categoryRepository.existsByName(name)) {
-            throw new InvalidDataException(String.format(CATEGORY_EXISTS_NAME, name));
+            throw new InvalidDataException(CATEGORY_EXISTS_NAME, name);
         }
 
         final Category category = Category.builder().name(name).build();

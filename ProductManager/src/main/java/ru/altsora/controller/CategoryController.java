@@ -5,9 +5,9 @@ import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import ru.altsora.dto.CategoryDto;
-import ru.altsora.dto.request.CategoryAddIn;
-import ru.altsora.dto.response.CategoryAddOut;
+import ru.altsora.model.dto.CategoryDto;
+import ru.altsora.model.request.CategoryAddIn;
+import ru.altsora.model.response.CategoryAddOut;
 import ru.altsora.service.CategoryService;
 
 import java.util.List;

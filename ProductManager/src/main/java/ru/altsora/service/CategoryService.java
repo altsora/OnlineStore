@@ -1,8 +1,8 @@
 package ru.altsora.service;
 
-import ru.altsora.dto.CategoryDto;
-import ru.altsora.dto.request.CategoryAddIn;
-import ru.altsora.dto.response.CategoryAddOut;
+import ru.altsora.model.dto.CategoryDto;
+import ru.altsora.model.request.CategoryAddIn;
+import ru.altsora.model.response.CategoryAddOut;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package ru.altsora.dto.response;
+package ru.altsora.model.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
@@ -11,10 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CategoryAddOut {
-    @JsonProperty("id")
-    @ApiModelProperty(name = "id", dataType = "java.lang.Long", value = "1", required = true, position = 1)
-    private long id;
+public class CategoryAddIn {
     @JsonProperty("name")
     @ApiModelProperty(name = "name", dataType = "java.lang.String", value = "Техника", required = true, position = 1)
     private String name;

@@ -1,4 +1,4 @@
-package ru.altsora.domain;
+package ru.altsora.model.domain;
 
 import lombok.*;
 
