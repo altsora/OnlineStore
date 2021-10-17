@@ -17,4 +17,9 @@ public final class RetMessage {
     public static final String SUBCATEGORY_NOT_FOUND = "Подкатегория с именем '%s' и ID категории '%s' не найдена";
     public static final String SUBCATEGORY_EMPTY_NAME = "Название подкатегории не может быть пустым";
     public static final String SUBCATEGORY_EXISTS = "Подкатегория с именем '%s' и ID категории '%s' уже существует";
+
+    public static final String PRODUCT_NOT_FOUND_ID = "Товар с ID '%s' не найден";
+    public static final String PRODUCT_NEGATIVE_PRICE = "Цена товара не может быть отрицательной";
+    public static final String PRODUCT_EMPTY_NAME = "Название товара не может быть пустым";
+    public static final String PRODUCT_EMPTY_DESCRIPTION = "Описание товара не может быть пустым";
 }

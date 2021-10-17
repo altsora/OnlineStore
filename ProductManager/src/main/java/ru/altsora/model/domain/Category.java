@@ -27,5 +27,6 @@ public class Category {
      * Название категории товара.
      */
     @Column(name = "name")
+    @EqualsAndHashCode.Include
     private String name;
 }

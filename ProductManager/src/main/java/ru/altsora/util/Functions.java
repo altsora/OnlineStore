@@ -1,8 +1,10 @@
 package ru.altsora.util;
 
 import ru.altsora.model.domain.Category;
+import ru.altsora.model.domain.Product;
 import ru.altsora.model.domain.Subcategory;
 import ru.altsora.model.dto.CategoryDto;
+import ru.altsora.model.dto.ProductDto;
 import ru.altsora.model.dto.SubcategoryDto;
 import ru.altsora.model.response.CategoryAddOut;
 
@@ -37,4 +39,11 @@ public final class Functions {
             .name(domain.getName())
             .build();
 
+    public static final Function<Product, ProductDto> PRODUCT_DOMAIN_TO_DTO = domain -> ProductDto.builder()
+            .id(domain.getId())
+            .name(domain.getName())
+            .price(domain.getPrice())
+            .isAvailable(domain.isAvailable())
+            .description(domain.getDescription())
+            .build();
 }

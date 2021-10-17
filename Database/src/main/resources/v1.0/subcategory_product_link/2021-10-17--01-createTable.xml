@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="2021-10-17--01-createTable" author="avergun" context="update" runInTransaction="false"
+               objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+        <preConditions onFail="HALT">
+            <tableExists tableName="subcategory"/>
+            <tableExists tableName="product"/>
+            <not>
+                <tableExists tableName="subcategory_product_link"/>
+            </not>
+        </preConditions>
+
+        <comment>Создание таблицы связей "Подкатегория-Продукт"</comment>
+
+        <createTable tableName="subcategory_product_link">
+            <column name="subcategory_id" type="numeric(15,0)" remarks="Внешний ключ на подкатегорию">
+                <constraints primaryKey="true" nullable="false" foreignKeyName="fk_subcategory_id" references="subcategory(id)"/>
+            </column>
+            <column name="product_id" type="numeric(15,0)" remarks="Внешний ключ на товар">
+                <constraints primaryKey="true" nullable="false" foreignKeyName="fk_product_id" references="product(id)"/>
+            </column>
+        </createTable>
+
+        <rollback>
+            DROP TABLE subcategory_product_link
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

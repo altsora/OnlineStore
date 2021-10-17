@@ -28,10 +28,12 @@ public class Subcategory {
      */
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id")
+    @EqualsAndHashCode.Include
     private Category category;
     /**
      * Название подкатегории товара.
      */
     @Column(name = "name")
+    @EqualsAndHashCode.Include
     private String name;
 }

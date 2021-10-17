@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="2021-10-17--02-loadData" author="avergun" context="update" runInTransaction="false"
+               objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+        <preConditions onFail="HALT">
+            <tableExists tableName="subcategory"/>
+            <tableExists tableName="product"/>
+            <tableExists tableName="subcategory_product_link"/>
+            <sqlCheck expectedResult="3">
+                SELECT COUNT(*) FROM subcategory WHERE id IN (1, 2, 3)
+            </sqlCheck>
+            <sqlCheck expectedResult="3">
+                SELECT COUNT(*) FROM product WHERE id IN (1, 2 ,3)
+            </sqlCheck>
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*) FROM subcategory_product_link
+            </sqlCheck>
+        </preConditions>
+
+        <comment>Заполнение таблицы связей "Подкатегория-Продукт"</comment>
+
+        <insert tableName="subcategory_product_link">
+            <column name="subcategory_id" value="1"/>
+            <column name="product_id" value="1"/>
+        </insert>
+        <insert tableName="subcategory_product_link">
+            <column name="subcategory_id" value="1"/>
+            <column name="product_id" value="2"/>
+        </insert>
+        <insert tableName="subcategory_product_link">
+            <column name="subcategory_id" value="2"/>
+            <column name="product_id" value="1"/>
+        </insert>
+        <insert tableName="subcategory_product_link">
+            <column name="subcategory_id" value="3"/>
+            <column name="product_id" value="3"/>
+        </insert>
+
+        <rollback>
+            <sql>
+                DELETE FROM subcategory_product_link
+            </sql>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

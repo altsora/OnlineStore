@@ -18,5 +18,7 @@
     <include file="category/2021-10-12--01-loadData.xml" relativeToChangelogFile="true"/>
     <include file="subcategory/2021-10-12--01-loadData.xml" relativeToChangelogFile="true"/>
     <include file="product/2021-10-12--01-loadData.xml" relativeToChangelogFile="true"/>
+    <include file="subcategory_product_link/2021-10-17--01-createTable.xml" relativeToChangelogFile="true"/>
+    <include file="subcategory_product_link/2021-10-17--02-loadData.xml" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>
