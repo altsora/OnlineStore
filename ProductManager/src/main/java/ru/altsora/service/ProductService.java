@@ -12,7 +12,7 @@ public interface ProductService {
 
     void setNoAvailable(long id);
 
-    void updatePrice(long id, double price);
+    void updatePrice(long id, Double price);
 
     void addSubcategories(long productId, Collection<Long> subcategoryIds);
 

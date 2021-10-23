@@ -1,23 +1,19 @@
 package ru.altsora.service;
 
 import lombok.RequiredArgsConstructor;
-import org.apache.logging.log4j.util.Strings;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import ru.altsora.exception.DomainNotFoundException;
-import ru.altsora.exception.InvalidDataException;
 import ru.altsora.model.domain.Product;
 import ru.altsora.model.dto.ProductDto;
 import ru.altsora.model.request.ProductUpdateIn;
 import ru.altsora.repository.ProductRepository;
 
 import java.util.Collection;
-import java.util.Objects;
 import java.util.Optional;
-import java.util.Set;
 
 import static ru.altsora.util.Functions.PRODUCT_DOMAIN_TO_DTO;
-import static ru.altsora.util.RetMessage.*;
+import static ru.altsora.util.RetMessage.PRODUCT_NOT_FOUND_ID;
 
 @Primary
 @Service
@@ -47,9 +43,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void updatePrice(long id, double price) {
+    public void updatePrice(long id, Double price) {
         if (!productRepository.existsById(id)) throw new DomainNotFoundException(PRODUCT_NOT_FOUND_ID, id);
-        if (price < 0) throw new InvalidDataException(PRODUCT_NEGATIVE_PRICE);
         productRepository.updatePrice(id, price);
     }
 
@@ -76,14 +71,10 @@ public class ProductServiceImpl implements ProductService {
         if (productOpt.isEmpty()) throw new DomainNotFoundException(PRODUCT_NOT_FOUND_ID, id);
         final Product product = productOpt.get();
 
-        final String name = in.getName();
-        final double price = in.getPrice();
-        final String description = in.getDescription();
-        final boolean available = in.getIsAvailable();
-        product.setName(name);
-        product.setPrice(price);
-        product.setAvailable(available);
-        product.setDescription(description);
+        product.setName(in.getName());
+        product.setPrice(in.getPrice());
+        product.setAvailable(in.getIsAvailable());
+        product.setDescription(in.getDescription());
         in.getSubcategories().ifPresent(product::addSubcategories);
         productRepository.saveAndFlush(product);
     }

@@ -11,11 +11,15 @@ import ru.altsora.model.request.CategoryAddIn;
 import ru.altsora.model.response.CategoryAddOut;
 import ru.altsora.service.CategoryService;
 
+import javax.validation.Valid;
 import java.util.List;
+
+import static ru.altsora.util.SwaggerConstants.DESC_CATEGORY;
+import static ru.altsora.util.SwaggerConstants.TAG_CATEGORY;
 
 @RestController
 @RequestMapping("/item/category")
-@Tag(name = "Категория", description = "Работа с категорией товаров")
+@Tag(name = TAG_CATEGORY, description = DESC_CATEGORY)
 public class CategoryController {
     private final CategoryService categoryService;
 
@@ -25,29 +29,31 @@ public class CategoryController {
     }
 
     @GetMapping
-    @ApiOperation(value = "Поиск всех категорий", response = CategoryDto.class, responseContainer = "List", tags = "Категория")
+    @ResponseStatus(HttpStatus.OK)
+    @ApiOperation(value = "Поиск всех категорий", response = CategoryDto.class, responseContainer = "List", tags = TAG_CATEGORY)
     public List<CategoryDto> findAll() {
         return categoryService.findAll();
     }
 
     @GetMapping("/{id}")
-    @ApiOperation(value = "Найти категорию по ID", response = CategoryDto.class, tags = "Категория")
+    @ResponseStatus(HttpStatus.OK)
+    @ApiOperation(value = "Найти категорию по ID", response = CategoryDto.class, tags = TAG_CATEGORY)
     public CategoryDto findById(@PathVariable("id") long id) {
         return categoryService.findById(id);
     }
 
     @GetMapping("/find")
-    @ApiOperation(value = "Найти категорию по имени", response = CategoryDto.class, tags = "Категория")
-    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseStatus(HttpStatus.OK)
+    @ApiOperation(value = "Найти категорию по имени", response = CategoryDto.class, tags = TAG_CATEGORY)
     public CategoryDto findByName(@RequestParam("name") String name) {
         return categoryService.findByName(name);
     }
 
     @PostMapping
-    @ApiOperation(value = "Добавить новую категорию", response = CategoryAddOut.class, tags = "Категория")
     @ResponseStatus(value = HttpStatus.CREATED)
+    @ApiOperation(value = "Добавить новую категорию", response = CategoryAddOut.class, tags = TAG_CATEGORY)
     public CategoryAddOut add(
-            @ApiParam(name = "addIn", required = true) @RequestBody CategoryAddIn addIn
+            @ApiParam(name = "addIn", required = true) @Valid @RequestBody CategoryAddIn addIn
     ) {
         return categoryService.add(addIn);
     }

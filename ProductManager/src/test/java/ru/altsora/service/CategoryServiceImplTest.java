@@ -155,16 +155,6 @@ class CategoryServiceImplTest {
     }
 
     @Test
-    @DisplayName("Создание категории: пустое имя")
-    void addCategory_emptyName() {
-        final String name = Strings.EMPTY;
-        final CategoryAddIn addIn = new CategoryAddIn(name);
-
-        final Executable executable = () -> categoryService.add(addIn);
-        assertThrows(InvalidDataException.class, executable);
-    }
-
-    @Test
     @DisplayName("Создание категории: имя уже существует")
     void addCategory_nameExists() {
         final String name = "categoryName";

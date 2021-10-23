@@ -56,14 +56,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public CategoryAddOut add(final CategoryAddIn addIn) {
         final String name = addIn.getName();
-
-        if (Strings.isEmpty(name)) {
-            throw new InvalidDataException(CATEGORY_EMPTY_NAME);
-        }
-        if (categoryRepository.existsByName(name)) {
-            throw new InvalidDataException(CATEGORY_EXISTS_NAME, name);
-        }
-
+        if (categoryRepository.existsByName(name)) throw new InvalidDataException(CATEGORY_EXISTS_NAME, name);
         final Category category = Category.builder().name(name).build();
         final Category save = categoryRepository.saveAndFlush(category);
         return CATEGORY_DOMAIN_TO_ADD_OUT.apply(save);

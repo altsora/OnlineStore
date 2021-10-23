@@ -6,6 +6,7 @@ import lombok.Getter;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.Nullable;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -14,6 +15,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import ru.altsora.exception.DomainNotFoundException;
 import ru.altsora.exception.InvalidDataException;
 
+import javax.validation.ConstraintViolationException;
 import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Set;
@@ -50,8 +52,22 @@ public class AwesomeExceptionHandler extends ResponseEntityExceptionHandler {
         ex.getBindingResult().getFieldErrors().forEach(err -> {
             final String field = err.getField();
             final String msg = err.getDefaultMessage();
-            error.addError(String.format(format, field, msg));
+            error.addError(format, field, msg);
         });
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    private ResponseEntity<Object> handleMy(ConstraintViolationException ex) {
+        final ErrorWrapper error = new ErrorWrapper(INVALID_DATA);
+        final String format = "Параметр: '%s', проблема: '%s'";
+
+        ex.getConstraintViolations().forEach(err -> {
+            final String field = err.getPropertyPath().toString().split("\\.")[1]; // method.variable
+            final String msg = err.getMessage();
+            error.addError(format, field, msg);
+        });
+
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 
@@ -74,8 +90,8 @@ public class AwesomeExceptionHandler extends ResponseEntityExceptionHandler {
             addError(msg);
         }
 
-        public void addError(String msg) {
-            errors.add(msg);
+        public void addError(String format, Object... args) {
+            errors.add(String.format(format, args));
         }
     }
 

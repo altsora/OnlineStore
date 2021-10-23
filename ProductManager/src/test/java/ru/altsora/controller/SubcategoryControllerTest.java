@@ -74,7 +74,8 @@ class SubcategoryControllerTest extends AbstractWebController {
                 .andExpect(status().isNotFound())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath(RET_CODE, notNullValue()))
-                .andExpect(jsonPath(RET_MESSAGE, notNullValue()))
+                .andExpect(jsonPath(ERROR_MESSAGES_LENGTH, is(1)))
+                .andExpect(jsonPath(ERROR_MESSAGES.apply(0), notNullValue()))
         ;
         verify(subcategoryService, times(1)).findByCategoryAndName(categoryId, name);
     }
@@ -163,7 +164,8 @@ class SubcategoryControllerTest extends AbstractWebController {
                 .andExpect(status().isNotFound())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath(RET_CODE, notNullValue()))
-                .andExpect(jsonPath(RET_MESSAGE, notNullValue()))
+                .andExpect(jsonPath(ERROR_MESSAGES_LENGTH, is(1)))
+                .andExpect(jsonPath(ERROR_MESSAGES.apply(0), notNullValue()))
         ;
         verify(subcategoryService, times(1)).findById(id);
     }
@@ -180,7 +182,7 @@ class SubcategoryControllerTest extends AbstractWebController {
 
         mockMvc.perform(post("/item/subcategory")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(converter.toJson(addIn)))
+                .content(jsonConverter.toJson(addIn)))
                 .andDo(print())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
@@ -191,7 +193,6 @@ class SubcategoryControllerTest extends AbstractWebController {
                 .andExpect(jsonPath("$.name", notNullValue()))
                 .andExpect(jsonPath("$.name", is(name)))
         ;
-
         verify(subcategoryService, times(1)).add(addIn);
     }
 
@@ -206,15 +207,15 @@ class SubcategoryControllerTest extends AbstractWebController {
 
         mockMvc.perform(post("/item/subcategory")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(converter.toJson(addIn)))
+                .content(jsonConverter.toJson(addIn)))
                 .andDo(print())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath(RET_CODE, notNullValue()))
-                .andExpect(jsonPath(RET_MESSAGE, notNullValue()))
+                .andExpect(jsonPath(ERROR_MESSAGES_LENGTH, is(1)))
+                .andExpect(jsonPath(ERROR_MESSAGES.apply(0), notNullValue()))
         ;
-
-        verify(subcategoryService, times(1)).add(addIn);
+        verify(subcategoryService, times(0)).add(addIn);
     }
 
     @Test
@@ -228,14 +229,14 @@ class SubcategoryControllerTest extends AbstractWebController {
 
         mockMvc.perform(post("/item/subcategory")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(converter.toJson(addIn)))
+                .content(jsonConverter.toJson(addIn)))
                 .andDo(print())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound())
                 .andExpect(jsonPath(RET_CODE, notNullValue()))
-                .andExpect(jsonPath(RET_MESSAGE, notNullValue()))
+                .andExpect(jsonPath(ERROR_MESSAGES_LENGTH, is(1)))
+                .andExpect(jsonPath(ERROR_MESSAGES.apply(0), notNullValue()))
         ;
-
         verify(subcategoryService, times(1)).add(addIn);
     }
 
@@ -250,16 +251,14 @@ class SubcategoryControllerTest extends AbstractWebController {
 
         mockMvc.perform(post("/item/subcategory")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(converter.toJson(addIn)))
+                .content(jsonConverter.toJson(addIn)))
                 .andDo(print())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath(RET_CODE, notNullValue()))
-                .andExpect(jsonPath(RET_MESSAGE, notNullValue()))
+                .andExpect(jsonPath(ERROR_MESSAGES_LENGTH, is(1)))
+                .andExpect(jsonPath(ERROR_MESSAGES.apply(0), notNullValue()))
         ;
-
         verify(subcategoryService, times(1)).add(addIn);
     }
-
-
 }

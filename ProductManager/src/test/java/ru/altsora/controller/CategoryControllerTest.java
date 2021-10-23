@@ -66,7 +66,8 @@ class CategoryControllerTest extends AbstractWebController {
                 .andExpect(status().isNotFound())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath(RET_CODE, notNullValue()))
-                .andExpect(jsonPath(RET_MESSAGE, notNullValue()))
+                .andExpect(jsonPath(ERROR_MESSAGES_LENGTH, is(1)))
+                .andExpect(jsonPath(ERROR_MESSAGES.apply(0), notNullValue()))
         ;
         verify(categoryService, times(1)).findById(id);
     }
@@ -102,7 +103,8 @@ class CategoryControllerTest extends AbstractWebController {
                 .andExpect(status().isNotFound())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath(RET_CODE, notNullValue()))
-                .andExpect(jsonPath(RET_MESSAGE, notNullValue()))
+                .andExpect(jsonPath(ERROR_MESSAGES_LENGTH, is(1)))
+                .andExpect(jsonPath(ERROR_MESSAGES.apply(0), notNullValue()))
         ;
         verify(categoryService, times(1)).findByName(name);
     }
@@ -162,7 +164,7 @@ class CategoryControllerTest extends AbstractWebController {
 
         mockMvc.perform(post("/item/category")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(converter.toJson(addIn)))
+                .content(jsonConverter.toJson(addIn)))
                 .andDo(print())
                 .andExpect(status().isCreated())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -183,15 +185,16 @@ class CategoryControllerTest extends AbstractWebController {
 
         mockMvc.perform(post("/item/category")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(converter.toJson(addIn)))
+                .content(jsonConverter.toJson(addIn)))
                 .andDo(print())
                 .andExpect(status().isBadRequest())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath(RET_CODE, notNullValue()))
-                .andExpect(jsonPath(RET_MESSAGE, notNullValue()))
+                .andExpect(jsonPath(ERROR_MESSAGES_LENGTH, is(1)))
+                .andExpect(jsonPath(ERROR_MESSAGES.apply(0), notNullValue()))
         ;
 
-        verify(categoryService, times(1)).add(addIn);
+        verify(categoryService, times(0)).add(addIn);
     }
 
     @Test
@@ -204,12 +207,13 @@ class CategoryControllerTest extends AbstractWebController {
 
         mockMvc.perform(post("/item/category")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(converter.toJson(addIn)))
+                .content(jsonConverter.toJson(addIn)))
                 .andDo(print())
                 .andExpect(status().isBadRequest())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath(RET_CODE, notNullValue()))
-                .andExpect(jsonPath(RET_MESSAGE, notNullValue()))
+                .andExpect(jsonPath(ERROR_MESSAGES_LENGTH, is(1)))
+                .andExpect(jsonPath(ERROR_MESSAGES.apply(0), notNullValue()))
         ;
 
         verify(categoryService, times(1)).add(addIn);
