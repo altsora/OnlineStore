@@ -19,7 +19,9 @@ public final class RetMessage {
     public static final String SUBCATEGORY_EXISTS = "Подкатегория с именем '%s' и ID категории '%s' уже существует";
 
     public static final String PRODUCT_NOT_FOUND_ID = "Товар с ID '%s' не найден";
-    public static final String PRODUCT_NEGATIVE_PRICE = "Цена товара не может быть отрицательной";
-    public static final String PRODUCT_EMPTY_NAME = "Название товара не может быть пустым";
-    public static final String PRODUCT_EMPTY_DESCRIPTION = "Описание товара не может быть пустым";
+
+    public static final String STORAGE_PRODUCT_NOT_FOUND_ID = "Товар с ID '%s' на складе не найден";
+    public static final String STORAGE_PLUS_OK = "Количество товара успешно увеличено: %s -> %s";
+    public static final String STORAGE_MINUS_OK = "Количество товара успешно уменьшено: %s -> %s";
+    public static final String STORAGE_MINUS_BAD = "Не удалось уменьшить количество товара. Текущее значение: %s. Запрашиваемое: %s";
 }

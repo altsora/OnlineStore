@@ -1,6 +1,7 @@
 package ru.altsora.model.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,6 +16,7 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @AllArgsConstructor
 @NotNull
+@ApiModel(description = "Выходные данные для добавления продукта")
 public class CategoryAddOut {
     @NotNull
     @JsonProperty("id")
