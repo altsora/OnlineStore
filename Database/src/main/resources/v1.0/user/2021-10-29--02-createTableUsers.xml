@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <property name="autoIncrement" value="false" dbms="postgresql,mssql,oracle"/>
+    <property name="autoIncrement" value="true" dbms="h2"/>
+
+    <changeSet id="2021-10-29--02-createTableUsers" author="avergun" context="update" runInTransaction="false"
+               objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+        <preConditions>
+            <sequenceExists sequenceName="user_id_seq"/>
+            <not>
+                <tableExists tableName="users"/>
+            </not>
+        </preConditions>
+
+        <comment>Создана таблица пользователей</comment>
+
+        <createTable tableName="users" remarks="Таблица пользователей">
+            <column name="id" type="numeric(15,0)" remarks="Суррогатный первичный ключ" autoIncrement="${autoIncrement}"
+                    defaultValueSequenceNext="user_id_seq">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="username" type="varchar(255)" remarks="Ник пользователя">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="varchar(255)" remarks="Пароль пользователя">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="varchar(255)" remarks="Почтовый адрес пользователя">
+                <constraints nullable="false"/>
+            </column>
+            <column name="first_name" type="varchar(255)" remarks="Имя пользователя">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_name" type="varchar(255)" remarks="Фамилия пользователя">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_birth" type="date" remarks="Дата рождения">
+                <constraints nullable="false"/>
+            </column>
+            <column name="balance" type="currency" remarks="Баланс пользователя">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <rollback>
+            <dropTable tableName="users"/>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

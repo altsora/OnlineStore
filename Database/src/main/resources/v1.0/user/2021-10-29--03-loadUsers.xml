@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <property name="autoIncrement" value="false" dbms="postgresql,mssql,oracle"/>
+    <property name="autoIncrement" value="true" dbms="h2"/>
+
+    <changeSet id="2021-10-29--03-loadUsers" author="avergun" context="update" runInTransaction="false"
+               objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+        <preConditions>
+            <tableExists tableName="users"/>
+            <columnExists tableName="users" columnName="username"/>
+            <columnExists tableName="users" columnName="password"/>
+            <columnExists tableName="users" columnName="email"/>
+            <columnExists tableName="users" columnName="first_name"/>
+            <columnExists tableName="users" columnName="last_name"/>
+            <columnExists tableName="users" columnName="date_birth"/>
+            <columnExists tableName="users" columnName="balance"/>
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*) FROM users
+            </sqlCheck>
+        </preConditions>
+
+        <comment>Загрузка пользователей</comment>
+
+        <sqlFile dbms="h2, postgresql"
+                 encoding="UTF-8"
+                 endDelimiter="\nGO"
+                 path="v1.0/data/users.sql"
+                 relativeToChangelogFile="false"
+                 splitStatements="true"
+                 stripComments="true"/>
+
+        <rollback>
+            <sql>
+                DELETE FROM users
+            </sql>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

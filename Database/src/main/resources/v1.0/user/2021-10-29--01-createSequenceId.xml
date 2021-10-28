@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <property name="autoIncrement" value="false" dbms="postgresql,mssql,oracle"/>
+    <property name="autoIncrement" value="true" dbms="h2"/>
+
+    <changeSet id="2021-10-29--01-createSequenceId" author="avergun" context="update" runInTransaction="false"
+               objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+        <preConditions>
+            <not>
+                <sequenceExists sequenceName="user_id_seq"/>
+            </not>
+        </preConditions>
+
+        <comment>Создание генератора ID пользователей</comment>
+
+        <createSequence sequenceName="user_id_seq" incrementBy="1" startValue="1"/>
+
+        <rollback>
+            <dropSequence sequenceName="user_id_seq"/>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>
